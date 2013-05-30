@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<extension type="package" version="3.1">
+	<name>Shortcodes Package</name>
+	<author>Bruno Batista</author>
+	<creationDate>May 2013</creationDate>
+	<copyright>Copyright (C) 2013 AtomTech, Inc. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>bruno@atomtech.com.br</authorEmail>
+	<authorUrl>http://www.atomtech.com.br</authorUrl>
+	<packagename>shortcodes</packagename>
+	<version>3.1.2</version>
+	<url>http://www.atomtech.com.br</url>
+	<packager>Bruno Batista</packager>
+	<packagerurl>http://www.atomtech.com.br</packagerurl>
+	<description>Shortcodes package to combine multiple extensions.</description>
+	<scriptfile />
+	<update>http://www.atomtech.com.br/update</update>
+	<files folder="packages">
+		<file type="library" id="lib_shortcodes">lib_shortcodes</file>
+		<file type="plugin" id="plg_content_shortcodes" group="content">plg_content_shortcodes</file>
+		<file type="plugin" id="plg_shortcodes_youtube" group="shortcodes">plg_shortcodes_youtube</file>
+	</files>
+</extension>
