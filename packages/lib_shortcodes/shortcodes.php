@@ -22,7 +22,7 @@ abstract class Shortcodes
 	 * @since   3.1
 	 * @var     array
 	 */
-	protected $shortcode_tags = array();
+	protected static $shortcode_tags = array();
 
 	/**
 	 * Add hook for shortcode tag.
@@ -36,11 +36,9 @@ abstract class Shortcodes
 	 */
 	public static function addShortcode($tag, $func)
 	{
-		global $shortcode_tags;
-
 		if (is_callable($func))
 		{
-			$shortcode_tags[$tag] = $func;
+			self::$shortcode_tags[$tag] = $func;
 		}
 	}
 
@@ -55,9 +53,7 @@ abstract class Shortcodes
 	 */
 	public static function removeShortcode($tag)
 	{
-		global $shortcode_tags;
-
-		unset($shortcode_tags[$tag]);
+		unset(self::$shortcode_tags[$tag]);
 	}
 
 	/**
@@ -69,9 +65,7 @@ abstract class Shortcodes
 	 */
 	public static function removeAllShortcodes()
 	{
-		global $shortcode_tags;
-
-		$shortcode_tags = array();
+		self::$shortcode_tags = array();
 	}
 
 	/**
@@ -85,9 +79,7 @@ abstract class Shortcodes
 	 */
 	public static function shortcodeExists($tag)
 	{
-		global $shortcode_tags;
-
-		return array_key_exists($tag, $shortcode_tags);
+		return array_key_exists($tag, self::$shortcode_tags);
 	}
 
 	/**
@@ -134,9 +126,7 @@ abstract class Shortcodes
 	 */
 	public static function doShortcode($content)
 	{
-		global $shortcode_tags;
-
-		if (empty($shortcode_tags) || !is_array($shortcode_tags))
+		if (empty(self::$shortcode_tags) || !is_array(self::$shortcode_tags))
 		{
 			return $content;
 		}
@@ -155,10 +145,8 @@ abstract class Shortcodes
 	 */
 	public static function getShortcodeRegex()
 	{
-		global $shortcode_tags;
-
 		// Initialiase variables.
-		$tagnames  = array_keys($shortcode_tags);
+		$tagnames  = array_keys(self::$shortcode_tags);
 		$tagregexp = join('|', array_map('preg_quote', $tagnames));
 
 		return '\\[(\\[?)' . "($tagregexp)" . '(?![\\w-])([^\\]\\/]*(?:\\/(?!\\])[^\\]\\/]*)*?)(?:(\\/)\\]|\\](?:([^\\[]*+(?:\\[(?!\\/\\2\\])[^\\[]*+)*+)\\[\\/\\2\\])?)(\\]?)';
@@ -175,8 +163,6 @@ abstract class Shortcodes
 	 */
 	public static function doShortcodeTag($matches)
 	{
-		global $shortcode_tags;
-
 		// Allow [[foo]] syntax for escaping a tag.
 		if ($matches[1] == '[' && $matches[6] == ']')
 		{
@@ -190,12 +176,12 @@ abstract class Shortcodes
 		if (isset($matches[5]))
 		{
 			// Enclosing tag - extra parameter.
-			return $matches[1] . call_user_func($shortcode_tags[$tag], $attr, $matches[5], $tag) . $matches[6];
+			return $matches[1] . call_user_func(self::$shortcode_tags[$tag], $attr, $matches[5], $tag) . $matches[6];
 		}
 		else
 		{
 			// Self-closing tag.
-			return $matches[1] . call_user_func($shortcode_tags[$tag], $attr, null,  $tag) . $matches[6];
+			return $matches[1] . call_user_func(self::$shortcode_tags[$tag], $attr, null,  $tag) . $matches[6];
 		}
 	}
 
@@ -291,9 +277,7 @@ abstract class Shortcodes
 	 */
 	public function stripShortcodes($content)
 	{
-		global $shortcode_tags;
-
-		if (empty($shortcode_tags) || !is_array($shortcode_tags))
+		if (empty(self::$shortcode_tags) || !is_array(self::$shortcode_tags))
 		{
 			return $content;
 		}

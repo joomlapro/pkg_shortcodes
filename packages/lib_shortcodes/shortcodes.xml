@@ -16,6 +16,7 @@
 	<scriptfile />
 	<files folder="shortcodes">
 		<filename>shortcodes.php</filename>
+		<filename>index.html</filename>
 	</files>
 	<languages folder="language">
 		<language tag="pt-BR">pt-BR/pt-BR.lib_shortcodes.sys.ini</language>
