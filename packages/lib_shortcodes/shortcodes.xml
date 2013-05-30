@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <extension type="library" version="3.1" method="upgrade">
 	<name>Shortcodes</name>
+	<libraryname>shortcodes</libraryname>
 	<author>Bruno Batista</author>
 	<creationDate>May 2013</creationDate>
 	<copyright>Copyright (C) 2013 AtomTech, Inc. All rights reserved.</copyright>
@@ -9,13 +10,12 @@
 	<authorUrl>http://www.atomtech.com.br</authorUrl>
 	<version>1.0</version>
 	<description>LIB_SHORTCODES_XML_DESCRIPTION</description>
-	<libraryname>shortcodes</libraryname>
 	<packager>shortcodes</packager>
 	<packagerurl>http://www.atomtech.com.br</packagerurl>
 	<updateservers>http://www.atomtech.com.br/update</updateservers>
 	<scriptfile />
-	<files folder="libraries">
-		<folder>shortcodes</folder>
+	<files folder="shortcodes">
+		<filename>shortcodes.php</filename>
 	</files>
 	<languages folder="language">
 		<language tag="pt-BR">pt-BR/pt-BR.lib_shortcodes.sys.ini</language>
