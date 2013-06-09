@@ -14,14 +14,14 @@ defined('_JEXEC') or die;
  *
  * @package     Joomla.Plugin
  * @subpackage  Content.Shortcodes
- * @since       3.1
+ * @since       3.2
  */
 class PlgContentShortcodes extends JPlugin
 {
 	/**
 	 * Container for storing shortcode tags and their hook to call for the shortcode.
 	 *
-	 * @since   3.1
+	 * @since   3.2
 	 * @var     array
 	 */
 	protected $shortcode_tags = array();
@@ -36,7 +36,7 @@ class PlgContentShortcodes extends JPlugin
 	 *
 	 * @return  string
 	 *
-	 * @since   3.1
+	 * @since   3.2
 	 */
 	public function onContentPrepare($context, &$article, &$params, $page = 0)
 	{
@@ -58,16 +58,20 @@ class PlgContentShortcodes extends JPlugin
 	 * @param   string    $tag   Shortcode tag to be searched in post content.
 	 * @param   callable  $func  Hook to run when shortcode is found.
 	 *
-	 * @return  void
+	 * @return  boolean   True on success.
 	 *
-	 * @since   3.1
+	 * @since   3.2
 	 */
 	public function addShortcode($tag, $func)
 	{
 		if (is_callable($func))
 		{
 			$this->shortcode_tags[$tag] = $func;
+
+			return true;
 		}
+
+		return false;
 	}
 
 	/**
@@ -77,7 +81,7 @@ class PlgContentShortcodes extends JPlugin
 	 *
 	 * @return  void
 	 *
-	 * @since   3.1
+	 * @since   3.2
 	 */
 	public function removeShortcode($tag)
 	{
@@ -89,7 +93,7 @@ class PlgContentShortcodes extends JPlugin
 	 *
 	 * @return  void
 	 *
-	 * @since   3.1
+	 * @since   3.2
 	 */
 	public function removeAllShortcodes()
 	{
@@ -103,7 +107,7 @@ class PlgContentShortcodes extends JPlugin
 	 *
 	 * @return  boolean
 	 *
-	 * @since   3.1
+	 * @since   3.2
 	 */
 	public function shortcodeExists($tag)
 	{
@@ -118,7 +122,7 @@ class PlgContentShortcodes extends JPlugin
 	 *
 	 * @return  boolean
 	 *
-	 * @since   3.1
+	 * @since   3.2
 	 */
 	public function hasShortcode($content, $tag)
 	{
@@ -150,7 +154,7 @@ class PlgContentShortcodes extends JPlugin
 	 *
 	 * @return  string  Content with shortcodes filtered out.
 	 *
-	 * @since   3.1
+	 * @since   3.2
 	 */
 	public function doShortcode($content)
 	{
@@ -169,7 +173,7 @@ class PlgContentShortcodes extends JPlugin
 	 *
 	 * @return  string  The shortcode search regular expression.
 	 *
-	 * @since   3.1
+	 * @since   3.2
 	 */
 	public function getShortcodeRegex()
 	{
@@ -187,7 +191,7 @@ class PlgContentShortcodes extends JPlugin
 	 *
 	 * @return  mixed  False on failure.
 	 *
-	 * @since   3.1
+	 * @since   3.2
 	 */
 	public function doShortcodeTag($matches)
 	{
@@ -220,7 +224,7 @@ class PlgContentShortcodes extends JPlugin
 	 *
 	 * @return  array  List of attributes and their value.
 	 *
-	 * @since   3.1
+	 * @since   3.2
 	 */
 	public function shortcodeParseAtts($text)
 	{
@@ -271,7 +275,7 @@ class PlgContentShortcodes extends JPlugin
 	 *
 	 * @return  array  Combined and filtered attribute list.
 	 *
-	 * @since 3.1
+	 * @since   3.2
 	 */
 	public function shortcodeAtts($pairs, $atts)
 	{
@@ -301,7 +305,7 @@ class PlgContentShortcodes extends JPlugin
 	 *
 	 * @return  string  Content without shortcode tags.
 	 *
-	 * @since   3.1
+	 * @since   3.2
 	 */
 	public function stripShortcodes($content)
 	{
