@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <extension version="3.1" type="plugin" group="content" method="upgrade">
 	<name>plg_content_shortcodes</name>
-	<author>Bruno Batista</author>
+	<author>Joomla! Project</author>
 	<creationDate>May 2013</creationDate>
-	<copyright>Copyright (C) 2013 AtomTech, Inc. All rights reserved.</copyright>
+	<copyright>Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-	<authorEmail>bruno@atomtech.com.br</authorEmail>
-	<authorUrl>http://www.atomtech.com.br</authorUrl>
+	<authorEmail>admin@joomla.org</authorEmail>
+	<authorUrl>www.joomla.org</authorUrl>
 	<version>1.0</version>
 	<description>PLG_CONTENT_SHORTCODES_XML_DESCRIPTION</description>
-	<scriptfile />
+	<scriptfile>script.php</scriptfile>
 	<files>
 		<filename plugin="shortcodes">shortcodes.php</filename>
 		<filename>index.html</filename>
 	</files>
 	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_content_shortcodes.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_content_shortcodes.sys.ini</language>
 		<language tag="pt-BR">pt-BR/pt-BR.plg_content_shortcodes.ini</language>
 		<language tag="pt-BR">pt-BR/pt-BR.plg_content_shortcodes.sys.ini</language>
 	</languages>

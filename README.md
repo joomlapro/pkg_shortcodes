@@ -9,6 +9,7 @@ Just download and install.
 
 ## Authors
 
+* Don Gilbert
 * Bruno Batista
 
 ## License

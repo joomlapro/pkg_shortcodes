@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<extension type="package" version="3.1">
+<extension type="package" version="3.1" method="upgrade">
 	<name>Shortcodes Package</name>
-	<author>Bruno Batista</author>
-	<creationDate>May 2013</creationDate>
-	<copyright>Copyright (C) 2013 AtomTech, Inc. All rights reserved.</copyright>
-	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-	<authorEmail>bruno@atomtech.com.br</authorEmail>
-	<authorUrl>http://www.atomtech.com.br</authorUrl>
 	<packagename>shortcodes</packagename>
 	<version>3.1.2</version>
-	<url>http://www.atomtech.com.br</url>
-	<packager>Bruno Batista</packager>
-	<packagerurl>http://www.atomtech.com.br</packagerurl>
 	<description>Shortcodes package to combine multiple extensions.</description>
-	<scriptfile />
-	<update>http://www.atomtech.com.br/update</update>
+	<creationDate>Jun 2013</creationDate>
+	<copyright>Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<author>Joomla! Project</author>
+	<authorEmail>admin@joomla.org</authorEmail>
+	<authorUrl>www.joomla.org</authorUrl>
+	<packager>Joomla!</packager>
+	<packagerurl>http://www.joomla.org</packagerurl>
+	<update>http://update.joomla.org/packages/joomla</update>
 	<files folder="packages">
 		<file type="plugin" id="plg_content_shortcodes" group="content">plg_content_shortcodes</file>
 		<file type="plugin" id="plg_shortcode_youtube" group="shortcode">plg_shortcode_youtube</file>
