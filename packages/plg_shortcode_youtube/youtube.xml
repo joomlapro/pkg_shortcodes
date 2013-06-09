@@ -20,7 +20,21 @@
 	</languages>
 	<config>
 		<fields name="params">
-			<fieldset name="basic" />
+			<fieldset name="basic">
+
+				<field
+					type="text"
+					name="width"
+					label="Width"
+					default="480" />
+
+				<field
+					type="text"
+					name="height"
+					label="Height"
+					default="390" />
+
+			</fieldset>
 		</fields>
 	</config>
 </extension>

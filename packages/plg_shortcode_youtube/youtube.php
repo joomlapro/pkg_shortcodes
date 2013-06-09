@@ -14,18 +14,18 @@ defined('_JEXEC') or die;
  *
  * @package     Joomla.Plugin
  * @subpackage  Shortcode.YouTube
- * @since       3.1
+ * @since       3.2
  */
-class PlgShortcodeYoutube extends JPlugin
+class PlgShortcodeYoutube extends PlgContentShortcodes
 {
 	/**
 	 * Method to catch the onAfterDispatch event.
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   3.1
+	 * @since   3.2
 	 */
-	public function onShortcodePrepare()
+	public function onShortcodePrepare($context, &$article, &$params)
 	{
 		// Check that we are in the site application.
 		if (JFactory::getApplication()->isAdmin())
@@ -33,40 +33,29 @@ class PlgShortcodeYoutube extends JPlugin
 			return true;
 		}
 
-		Shortcodes::addShortcode('youtube', 'PlgShortcodeYoutube::youtube');
+		$this->addShortcode('youtube', array($this, 'youtube'));
 
-		return true;
+		$article->text = $this->doShortcode($article->text);
 	}
 
 	/**
-	 * Method to create YouTube shortcode.
+	 * Method to a YouTube video from the [youtube] shortcode.
 	 *
 	 * @param   string  $atts  User defined attributes in shortcode tag.
 	 *
 	 * @return  string
 	 *
-	 * @since   3.1
+	 * @since   3.2
 	 */
-	public static function youtube($atts)
+	public function youtube()
 	{
-		extract(
-			Shortcodes::shortcodeatts(
-				array(
-					'id' => '',
-					'width' => 480,
-					'height' => 390
-				),
-				$atts
-			)
-		);
-
-		$id = trim($id);
+		$id = $this->params->get('id');
 
 		if (empty($id))
 		{
 			return;
 		}
 
-		return '<iframe title="YouTube video player" width="' . $width . '" height="' . $height . '" src="http://www.youtube.com/embed/' . $id . '" frameborder="0" allowfullscreen></iframe>';
+		return '<iframe title="YouTube video player" width="' . $this->params->get('width') . '" height="' . $this->params->get('height') . '" src="http://www.youtube.com/embed/' . $id . '" frameborder="0" allowfullscreen></iframe>';
 	}
 }
