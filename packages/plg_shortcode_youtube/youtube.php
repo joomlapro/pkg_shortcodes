@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  Shortcode.YouTube
  * @since       3.1
  */
-class PlgShortcodeYoutube extends JPlugin
+class PlgShortcodeYoutube extends PlgContentShortcodes
 {
 	/**
 	 * Method to catch the onAfterDispatch event.
@@ -33,9 +33,7 @@ class PlgShortcodeYoutube extends JPlugin
 			return true;
 		}
 
-		Shortcodes::addShortcode('youtube', 'PlgShortcodeYoutube::youtube');
-
-		return true;
+		return $this->addShortcode('youtube', array($this, 'youtube'));
 	}
 
 	/**
@@ -47,10 +45,10 @@ class PlgShortcodeYoutube extends JPlugin
 	 *
 	 * @since   3.1
 	 */
-	public static function youtube($atts)
+	public function youtube($atts)
 	{
 		extract(
-			Shortcodes::shortcodeatts(
+			$this->shortcodeAtts(
 				array(
 					'id' => '',
 					'width' => 480,

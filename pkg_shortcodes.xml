@@ -16,7 +16,6 @@
 	<scriptfile />
 	<update>http://www.atomtech.com.br/update</update>
 	<files folder="packages">
-		<file type="library" id="lib_shortcodes">lib_shortcodes</file>
 		<file type="plugin" id="plg_content_shortcodes" group="content">plg_content_shortcodes</file>
 		<file type="plugin" id="plg_shortcode_youtube" group="shortcode">plg_shortcode_youtube</file>
 	</files>
