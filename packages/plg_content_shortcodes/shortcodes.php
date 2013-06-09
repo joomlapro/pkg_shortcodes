@@ -41,15 +41,13 @@ class PlgContentShortcodes extends JPlugin
 	public function onContentPrepare($context, &$article, &$params, $page = 0)
 	{
 		// Get the event dispatcher.
-		$dispatcher = JEventDispatcher::getInstance();
+		$dispatcher = JDispatcher::getInstance();
 
 		// Load the shortcode plugin group.
 		JPluginHelper::importPlugin('shortcode');
 
 		// Trigger the onShortcodePrepare event.
 		$dispatcher->trigger('onShortcodePrepare', array($context, &$article, &$params));
-
-		$article->text = $this->doShortcode($article->text);
 	}
 
 	/**
@@ -72,46 +70,6 @@ class PlgContentShortcodes extends JPlugin
 		}
 
 		return false;
-	}
-
-	/**
-	 * Removes hook for shortcode.
-	 *
-	 * @param   string  $tag  Shortcode tag to remove hook for.
-	 *
-	 * @return  void
-	 *
-	 * @since   3.2
-	 */
-	public function removeShortcode($tag)
-	{
-		unset($this->shortcode_tags[$tag]);
-	}
-
-	/**
-	 * Clear all shortcodes.
-	 *
-	 * @return  void
-	 *
-	 * @since   3.2
-	 */
-	public function removeAllShortcodes()
-	{
-		$this->shortcode_tags = array();
-	}
-
-	/**
-	 * Whether a registered shortcode exists named $tag.
-	 *
-	 * @param   string  $tag  Shortcode tag to be verify if exists.
-	 *
-	 * @return  boolean
-	 *
-	 * @since   3.2
-	 */
-	public function shortcodeExists($tag)
-	{
-		return array_key_exists($tag, $this->shortcode_tags);
 	}
 
 	/**
@@ -203,26 +161,26 @@ class PlgContentShortcodes extends JPlugin
 
 		// Initialiase variables.
 		$tag = $matches[2];
-		$attr = $this->shortcodeParseAtts($matches[3]);
+		$this->shortcodeParseAtts($matches[3]);
 
+		// If using open & closing tags. Ex: [foo]content[/foo]
 		if (isset($matches[5]))
 		{
-			// Enclosing tag - extra parameter.
-			return $matches[1] . call_user_func($this->shortcode_tags[$tag], $attr, $matches[5], $tag) . $matches[6];
+			return $matches[1] . call_user_func($this->shortcode_tags[$tag], $matches[5]) . $matches[6];
 		}
+		// Self-closing tag. Ex: [foo bar="baz"]
 		else
 		{
-			// Self-closing tag.
-			return $matches[1] . call_user_func($this->shortcode_tags[$tag], $attr, null,  $tag) . $matches[6];
+			return $matches[1] . call_user_func($this->shortcode_tags[$tag], null) . $matches[6];
 		}
 	}
 
 	/**
 	 * Retrieve all attributes from the shortcodes tag.
 	 *
-	 * @param   string  $text  Text to search for attributes.
+	 * @param   string   $text  Text to search for attributes.
 	 *
-	 * @return  array  List of attributes and their value.
+	 * @return  boolean  True on success.
 	 *
 	 * @since   3.2
 	 */
@@ -259,12 +217,11 @@ class PlgContentShortcodes extends JPlugin
 				}
 			}
 		}
-		else
-		{
-			$atts = ltrim($text);
-		}
 
-		return $atts;
+		// Merge tag attributes with default config.
+		$this->params->loadArray($atts);
+
+		return true;
 	}
 
 	/**
@@ -296,46 +253,5 @@ class PlgContentShortcodes extends JPlugin
 		}
 
 		return $out;
-	}
-
-	/**
-	 * Remove all shortcode tags from the given content.
-	 *
-	 * @param   string  $content  Content to remove shortcode tags.
-	 *
-	 * @return  string  Content without shortcode tags.
-	 *
-	 * @since   3.2
-	 */
-	public function stripShortcodes($content)
-	{
-		if (empty($this->shortcode_tags) || !is_array($this->shortcode_tags))
-		{
-			return $content;
-		}
-
-		$pattern = $this->getShortcodeRegex();
-
-		return preg_replace_callback("/$pattern/s", array($this, 'stripShortcodeTag'), $content);
-	}
-
-	/**
-	 * Metho to strip shortcode of tag.
-	 *
-	 * @param   array  $matches  Regular expression match array.
-	 *
-	 * @return  mixed  False on failure.
-	 *
-	 * @since   3.1
-	 */
-	public function stripShortcodeTag($matches)
-	{
-		// Allow [[foo]] syntax for escaping a tag.
-		if ($matches[1] == '[' && $matches[6] == ']')
-		{
-			return substr($matches[0], 1, -1);
-		}
-
-		return $matches[1] . $matches[6];
 	}
 }
