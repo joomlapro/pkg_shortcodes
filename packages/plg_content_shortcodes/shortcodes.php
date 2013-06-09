@@ -41,7 +41,7 @@ class PlgContentShortcodes extends JPlugin
 	public function onContentPrepare($context, &$article, &$params, $page = 0)
 	{
 		// Get the event dispatcher.
-		$dispatcher = JDispatcher::getInstance();
+		$dispatcher = JEventDispatcher::getInstance();
 
 		// Load the shortcode plugin group.
 		JPluginHelper::importPlugin('shortcode');
